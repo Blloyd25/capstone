@@ -10,9 +10,7 @@ class Customer(models.Model):
     address = models.CharField(max_length=255)
 
 
-
-
-class Employee(models.Model):
+class Employee(models.Models):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.ForeignKey(User, on_delete=models.CASCADE)
     transaction = models.IntegerField()

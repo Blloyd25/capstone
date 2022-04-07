@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework import response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view
-from .searilizers import Customer_Serializer, Employee_Serializer
-from models import Customer, Employee
+from .serializers import Customer_Serializer, Employee_Serializer
+from .models import Customer, Employee
 
 
 

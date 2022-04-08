@@ -68,6 +68,13 @@ const RegisterPage = () => {
           NOTE: Make this an uncommon password with characters, numbers, and
           special characters!
         </p>
+        <label htmlFor ="account_type">
+          <p>Please select if you are wanting to become a Customer or a Helper?</p>
+          <input type ="radio" id="Customer"name="account_type"value="HTML"></input><label>Customer</label>
+          
+          <input type ="radio" id="Helper"name="account_type"value="HTML"></input><label>Helper</label>
+          
+        </label>
         <button>Register!</button>
       </form>
     </div>

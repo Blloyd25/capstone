@@ -10,6 +10,7 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
+    // type_of_account: "",
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -64,17 +65,21 @@ const RegisterPage = () => {
             onChange={handleInputChange}
           />
         </label>
+        {/* <label>
+          Type of Account:{" "}
+          <input
+            type="text"
+            name="customer or helper"
+            value={formData.type_of_account}
+            onChange={handleInputChange}
+          />
+        </label> */}
+       
+         
         <p style={{ fontSize: "12px" }}>
           NOTE: Make this an uncommon password with characters, numbers, and
           special characters!
         </p>
-        <label htmlFor ="account_type">
-          <p>Please select if you are wanting to become a Customer or a Helper?</p>
-          <input type ="radio" id="Customer"name="account_type"value="HTML"></input><label>Customer</label>
-          
-          <input type ="radio" id="Helper"name="account_type"value="HTML"></input><label>Helper</label>
-          
-        </label>
         <button>Register!</button>
       </form>
     </div>

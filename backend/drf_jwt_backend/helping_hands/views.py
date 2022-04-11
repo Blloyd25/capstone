@@ -18,21 +18,24 @@ def customer_list(request):
 
     elif request.method == 'POST':
         serializer = Customer_Serializer(data=request.data)
-        serializer.is_valid(raise_exception= True)
+        serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT','DELETE'])
 def customer_detail(request, pk):
     helping_hands =get_list_or_404 (Customer, pk=pk)
     if request.method == 'GET':
-        serializer = Customer_Serializer(helping_hands)
+        serializer = Customer_Serializer(helping_hands[0])
         return Response(serializer.data)
     elif request.method =='PUT':
-        serializer = Customer_Serializer(helping_hands, data=request.data)
+        serializer = Customer_Serializer(helping_hands[0], data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save
+        serializer.save()
         return Response(serializer.data)
+    elif request.method =='DELETE':
+        customer_detail.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 
 
@@ -49,21 +52,24 @@ def employee_list(request):
 
     elif request.method == 'POST':
         serializer = Employee_Serializer(data=request.data)
-        serializer.is_valid(raise_exception= True)
+        serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def employee_detail(request, pk):
     helping_hands =get_list_or_404 (Employee, pk=pk)
     if request.method == 'GET':
-        serializer = Employee_Serializer(helping_hands)
+        serializer = Employee_Serializer(helping_hands[0])
         return Response(serializer.data)
     elif request.method =='PUT':
-        serializer = Employee_Serializer(helping_hands, data=request.data)
+        serializer = Employee_Serializer(helping_hands[0], data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save
+        serializer.save()
         return Response(serializer.data)
+    elif request.method =='DELETE':
+        employee_detail.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -79,21 +85,24 @@ def job_list(request):
 
     elif request.method == 'POST':
         serializer = Job_Serializer(data=request.data)
-        serializer.is_valid(raise_exception= True)
+        serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def job_detail(request, pk):
     helping_hands =get_list_or_404 (Job, pk=pk)
     if request.method == 'GET':
-        serializer = Job_Serializer(helping_hands)
+        serializer = Job_Serializer(helping_hands[0])
         return Response(serializer.data)
     elif request.method =='PUT':
-        serializer = Job_Serializer(helping_hands, data=request.data)
+        serializer = Job_Serializer(helping_hands[0], data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save
+        serializer.save()
         return Response(serializer.data)
+    elif request.method =='DELETE':
+        job_detail.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -109,21 +118,24 @@ def offer_list(request):
 
     elif request.method == 'POST':
         serializer = Offer_Serializer(data=request.data)
-        serializer.is_valid(raise_exception= True)
+        serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def offer_detail(request, pk):
     helping_hands =get_list_or_404 (Offer, pk=pk)
     if request.method == 'GET':
-        serializer = Offer_Serializer(helping_hands)
+        serializer = Offer_Serializer(helping_hands[0])
         return Response(serializer.data)
     elif request.method =='PUT':
-        serializer = Offer_Serializer(helping_hands, data=request.data)
+        serializer = Offer_Serializer(helping_hands[0], data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save
+        serializer.save()
         return Response(serializer.data)
+    elif request.method =='DELETE':
+        offer_detail.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -139,21 +151,24 @@ def reviews_list(request):
 
     elif request.method == 'POST':
         serializer = Reviews_Serializer(data=request.data)
-        serializer.is_valid(raise_exception= True)
+        serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def reviews_detail(request, pk):
     helping_hands =get_list_or_404 (Reviews, pk=pk)
     if request.method == 'GET':
-        serializer = Reviews_Serializer(helping_hands)
+        serializer = Reviews_Serializer(helping_hands[0])
         return Response(serializer.data)
     elif request.method =='PUT':
-        serializer = Reviews_Serializer(helping_hands, data=request.data)
+        serializer = Reviews_Serializer(helping_hands[0], data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save
+        serializer.save()
         return Response(serializer.data)
+    elif request.method =='DELETE':
+        reviews_detail.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 
 

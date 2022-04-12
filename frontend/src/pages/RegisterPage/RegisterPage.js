@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
-
+import CustomerHomepage from "./Customer_Homepage";
+import EmployeeHomepage from "./Employee_Homepage";
+import { Link } from "react-router-dom";
 const RegisterPage = () => {
   const { registerUser } = useContext(AuthContext);
   const defaultValues = {
@@ -10,7 +12,7 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
-    // type_of_account: "",
+   
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -65,15 +67,15 @@ const RegisterPage = () => {
             onChange={handleInputChange}
           />
         </label>
-        {/* <label>
-          Type of Account:{" "}
-          <input
-            type="text"
-            name="customer or helper"
-            value={formData.type_of_account}
-            onChange={handleInputChange}
-          />
-        </label> */}
+          
+          <p>Please select if you are wanting to become a Customer or a Helper?</p>
+          <input type ="radio" id="Customer"name="account_type"value="HTML"></input><label>Do you need help?</label>
+          <Link to ="/CustomerHomepage"></Link>
+          
+          
+          <input type ="radio" id="Helper"name="account_type"value="HTML"></input><label>Become a Helper</label>
+          <Link to="/EmployeeHomepage"></Link>
+         
        
          
         <p style={{ fontSize: "12px" }}>

@@ -13,6 +13,8 @@ class Employee(models.Model):
     location = models.CharField(max_length=255)
     ratings = models.CharField(max_length=255)
     payment = models.CharField(max_length=255, null=True)
+    lat= models.CharField(max_length=20, null =True)
+    lng=models.CharField(max_length=20, null=True)
 
 
 class Job(models.Model):
@@ -24,6 +26,9 @@ class Job(models.Model):
     zip_code = models.IntegerField()
     status = models.CharField(max_length=255)
     final_ammount = models.IntegerField()
+    lat= models.CharField(max_length=20, null =True)
+    lng=models.CharField(max_length=20, null=True)
+
 
 class Offer(models.Model):
     employee = models.ForeignKey(Employee,on_delete=models.CASCADE)

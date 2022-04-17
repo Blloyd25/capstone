@@ -39,13 +39,8 @@ const LoginPage = () => {
             onChange={handleInputChange}
           />
         </label>
-        <p>Which account would you like to login to?</p>
-          <input type ="radio" id="Customer"name="account_type"value="HTML"></input><label>Do you need help?</label>
-          <Link to ="/CustomerHomepage"></Link>
+        
           
-          
-          <input type ="radio" id="Helper"name="account_type"value="HTML"></input><label>Become a Helper</label>
-          <Link to="/EmployeeHomepage"></Link>
 
         {isServerError ? (
           <p className="error">Login failed, incorrect credentials!</p>

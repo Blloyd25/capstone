@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
-import CustomerHomepage from "./Customer_Homepage";
-import EmployeeHomepage from "./Employee_Homepage";
-import { Link } from "react-router-dom";
+
 const RegisterPage = () => {
   const { registerUser } = useContext(AuthContext);
   const defaultValues = {
@@ -12,13 +10,22 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
-   
+    address:"",
+    is_customer:"true"
+      
+    
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
     registerUser
   );
+  
+  const [isCustomer, setIsCustomer] = useState("true");
 
+  const handleCustomerChange=(e)=> {
+    setIsCustomer(e.target.value);
+    handleInputChange(e);
+  }
   return (
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
@@ -67,17 +74,17 @@ const RegisterPage = () => {
             onChange={handleInputChange}
           />
         </label>
-          
-          <p>Please select if you are wanting to become a Customer or a Helper?</p>
-          <input type ="radio" id="Customer"name="account_type"value="HTML"></input><label>Do you need help?</label>
-          <Link to ="/CustomerHomepage"></Link>
-          
-          
-          <input type ="radio" id="Helper"name="account_type"value="HTML"></input><label>Become a Helper</label>
-          <Link to="/EmployeeHomepage"></Link>
-         
-       
-         
+        <label>
+          Address:{" "}
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange}
+          />
+        </label>
+        <input type ="radio" id="Customer"name="is_customer"value={true} checked={isCustomer==="true"}onChange={handleCustomerChange} ></input><label>Customer</label>     
+        <input type ="radio" id="Helper"name="is_customer"value={false}checked={isCustomer==="false"}onChange={handleCustomerChange} ></input><label>Employee</label> 
         <p style={{ fontSize: "12px" }}>
           NOTE: Make this an uncommon password with characters, numbers, and
           special characters!

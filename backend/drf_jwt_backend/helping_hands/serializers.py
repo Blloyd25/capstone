@@ -12,13 +12,13 @@ class Customer_Serializer(serializers.ModelSerializer):
 class Employee_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ['id', 'user', 'location', 'ratings','payment']
+        fields = ['id', 'user', 'location', 'ratings','payment','lat','lng']
        
 
 class Job_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Job
-        fields = ['id', 'customer', 'job_description', 'street', 'city', 'state', 'zip_code', 'status', 'final_ammount']
+        fields = ['id', 'customer', 'job_description', 'street', 'city', 'state', 'zip_code', 'status', 'final_ammount','lat','lng']
         
 
 class Offer_Serializer(serializers.ModelSerializer):

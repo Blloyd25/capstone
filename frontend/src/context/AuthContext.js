@@ -34,18 +34,65 @@ export const AuthProvider = ({ children }) => {
         password: registerData.password,
         email: registerData.email,
         first_name: registerData.firstName,
-        last_name: registerData.lastName,
+        last_name: registerData.lastName
+      };
+      let customerData = {
+        User:"",
+        payment:"defaultpayment",
+        address:registerData.address
+      };
+      let employeeData = {
+        user:"",
+        location:registerData.address,
+        ratings:"3",
+        payment:"defaultpayment",
+        lat:"",
+        lng:"",
       };
       let response = await axios.post(`${BASE_URL}/register/`, finalData);
       if (response.status === 201) {
         console.log("Successful registration! Log in to access token");
-        setIsServerError(false);
-        navigate("/login");
-      } else {
+        let loginResponse = await axios.post(`${BASE_URL}/login/`, {username:finalData.username, password: finalData.password});
+        localStorage.setItem("token", JSON.stringify(loginResponse.data.access));
+        setToken(JSON.parse(localStorage.getItem("token")));
+        let loggedInUser = jwtDecode(loginResponse.data.access);
+        setUser(setUserObject(loggedInUser));
+       
+  
+        if (registerData.is_customer==="true"){
+          customerData.User=response.data.id;
+          
+          let customerResponse = await axios.post("http://127.0.0.1:8000/api/helping_hands/customer/",customerData, {
+                headers: {
+                    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("token"))
+                }
+            });
+          setIsServerError(false);
+          navigate("/customer");
+        }
+        else{
+          employeeData.user=response.data.id;
+          let addressf=employeeData.location.replace(/ /g, '%20')
+          console.log(addressf)
+          axios.get('https://maps.googleapis.com/maps/api/geocode/json?address='+addressf+'&key=AIzaSyCu_jw6e33LLrNnXPMIZh9_vT907qZyvTk' ).then(async latlngresponse =>{
+          employeeData.lat = latlngresponse.data.results[0].geometry.location.lat;
+          console.log(latlngresponse.data);
+          employeeData.lng = latlngresponse.data.results[0].geometry.location.lng;
+
+          let employeeResponse = await axios.post("http://127.0.0.1:8000/api/helping_hands/employee/",employeeData, {
+                headers: {
+                    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("token"))
+                }
+            });
+          setIsServerError(false);
+          navigate("/employee");
+          });
+        }
+          } else {
         navigate("/register");
       }
     } catch (error) {
-      console.log(error.toJSON());
+      console.log(error);
     }
   };
 
@@ -57,8 +104,20 @@ export const AuthProvider = ({ children }) => {
         setToken(JSON.parse(localStorage.getItem("token")));
         let loggedInUser = jwtDecode(response.data.access);
         setUser(setUserObject(loggedInUser));
-        setIsServerError(false);
-        navigate("/");
+        let uid=loggedInUser.user_id;
+        let customerResponse= await axios.get("http://127.0.0.1:8000/api/helping_hands/customer/",
+        {
+          headers:{Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))},
+        });
+        let customer=customerResponse.data.filter(e => e.User==uid)
+        if(customer.length!==0){
+          setIsServerError(false);
+          navigate("/customer");
+        }
+        else{
+          setIsServerError(false);
+          navigate("/employee");
+        }
       } else {
         navigate("/register");
       }

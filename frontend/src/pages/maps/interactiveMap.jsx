@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GoogleMap, useLoadScript, InfoWindow, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript,Distance, InfoWindow, Marker, DirectionsRenderer, Circle, MarkerClusterer } from '@react-google-maps/api';
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 
@@ -27,8 +27,16 @@ function InteractiveMap(props) {
         disableDefaultUI: true,
         zoomControl: true
     }
-
-   
+    // // const cityCircle = new google.maps.Circle({
+    //     strokeColor: "#FF0000",
+    //     strokeOpacity: 0.8,
+    //     strokeWeight: 2,
+    //     fillColor: "#FF0000",
+    //     fillOpacity: 0.35,
+    //     map,
+    //     center: citymap[city].center,
+    //     radius: Math.sqrt(citymap[city].population) * 100,
+    //   });
 
     
 
@@ -43,7 +51,7 @@ function InteractiveMap(props) {
     
     return (
         <div>
-            <GoogleMap mapContainerStyle={mapContainerStyle} zoom={14} center={center} options={options}>
+            <GoogleMap mapContainerStyle={mapContainerStyle} zoom={11} center={center} options={options}>
                 {/* {props.listedUsers.map(listedUser => { */}
                     return(
                         <>
@@ -53,12 +61,12 @@ function InteractiveMap(props) {
                               <Marker position={{lat: parseFloat(job.lat), lng: parseFloat(job.lng)}}/>
                               </React.Fragment> 
                             ))}
+                            <Circle strokeColor={"#ff0000"} strokeOpacity={.8} strokeWeight={2} fillColor={"#ff0000"} fillOpacity={.35} center={{lat: parseFloat(props.worker.lat), lng: parseFloat(props.worker.lng)}} radius={24140}/>
                                 
                             
                         </>
                     ) 
                 
-
                 {/* {selected ? (
                     // <InfoWindow position={{lat: parseFloat(props.listedUser.lat), lng: parseFloat(props.listedUser.lng)}} onCloseClick={event => setSelected(null)}>
                     //     <div>

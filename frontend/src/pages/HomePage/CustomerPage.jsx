@@ -6,7 +6,8 @@ import './HomePage.css'
 import SearchBar from "../../components/searchBar/searchBar";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PayPalApp from "../Payment/testpaypal";
-
+import InteractiveMap from '../maps/interactiveMap'
+import EmployeePage from "./EmployeePage"
 
 
 const CustomerPage = () => {
@@ -14,6 +15,8 @@ const CustomerPage = () => {
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   const [user, token] = useAuth();
   const [customer, setcustomer] = useState();
+  const [jobs, setJobs] = useState([]);
+  const [balance, setBalance] = useState(0);
   const [createNewJob, setCreateNewJob] = useState({
     jobDescription:"",
     street:"",
@@ -36,7 +39,24 @@ const CustomerPage = () => {
               return person
             }
           });
-          setcustomer(custome[0])             
+          setcustomer(custome[0]) 
+          let jobResponse = await axios.get("http://127.0.0.1:8000/api/helping_hands/jobs/", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          });
+          
+          let customerJobs=jobResponse.data.filter(e=>e.customer==custome[0].id)
+          console.log(customerJobs)
+          setJobs(customerJobs);
+
+          let sum=0;
+          for (let i=0;i<customerJobs.length;i++){
+            if (customerJobs[i].status==="Complete"){
+              sum +=customerJobs[i].final_ammount
+            }
+          } 
+          setBalance(sum)           
       } catch (error) {
         console.log(error.message);
       }
@@ -72,6 +92,9 @@ const CustomerPage = () => {
       }
     });            
   }
+  
+
+
   function handleChange(e){
     setCreateNewJob({ ...createNewJob, [e.target.name]: e.target.value });
   }
@@ -79,44 +102,75 @@ const CustomerPage = () => {
   
   return (
     <div className="homepage-wrapper">
-      <h1>Welcome Back Customer {user.username}!</h1>
+      <h1 className="greeting">Welcome Back {user.username}!</h1>
       <div className="payment-box-wrapper">
         {/* appear to the left */}
         <div className="payment-box">
           {/* <form onSubmit={SubmitJob}> */}
             <label>
-              Job Desctription: 
+              Job Desctription : 
+            </label>
               <input type="text" value={createNewJob.jobDescription} onChange={handleChange} name="jobDescription" />
-            </label>
             <label>
-              Street: 
+              Street : 
+            </label>
               <input type="text" value={createNewJob.street} onChange={handleChange} name="street" />
-            </label>
             <label>
-              City: 
+              City : 
+            </label>
               <input type="text" value={createNewJob.city} onChange={handleChange} name="city" />
-            </label>
             <label>
-              State: 
+              State : 
+            </label>
               <input type="text" value={createNewJob.state} onChange={handleChange} name="state" />
-            </label>
             <label>
-              Zip Code: 
-              <input type="text" value={createNewJob.zipCode} onChange={handleChange} name="zipCode" />
+              Zip Code : 
             </label>
-            <button onClick={SubmitJob} >Submit</button>
+              <input type="text" value={createNewJob.zipCode} onChange={handleChange} name="zipCode" />
+            <button className="search" onClick={SubmitJob} >Submit</button>
           {/* </form> */}
         </div>
-        <div className="payment-box-container">
-            
+        <div className="payment-box-container joblist">
+            <table>
+              <thead>
+                <tr>
+                <th>job description</th>
+                <th>street</th>
+                <th>city</th>
+                <th>status</th>
+                <th>accepted by</th>
+                <th>price</th>
+                <th>Accept job</th>
+                </tr>
+              </thead>
+              <tbody>
+          {jobs?.map((job)=>(
+              <tr>
+                              <React.Fragment key={job.id}>
+                              <td >{job.job_description}</td>
+                              <td >{job.street}</td>
+                              <td >{job.city}</td>
+                              <td>{job.status}</td>
+                              <td>{(job.status!=="Open")&&"Tom Hanks"}</td>
+                              <td>{job.final_ammount}</td>
+                              <td>{<button className="acceptjob" >Accept</button>}</td>
+                              </React.Fragment>
+              </tr>
+                          ))}
+              </tbody>
+            </table>
         </div>
         <div className="payment-box">
-         {/* <PayPalApp/> */}
+          <div>$ {balance}</div>
+         <PayPalApp/>
         </div>
       </div>
-      <h1>google maps here!</h1>
+      <h1></h1>
       <div className="map-container">
+        
         <div className="map">
+          
+          
         </div>
       </div>
     </div>

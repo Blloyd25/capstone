@@ -5,45 +5,89 @@
     flex-direction: column;
     text-align: center;
     text-decoration-color: rgb(235, 85, 85);
+    background-color: lightgray;
+    text-shadow: 3px;
+}
+.greeting{
+    color: rgb(235, 85, 85);
 }
 .payment-box-wrapper{
     display:flex;
     width:100%;
     justify-content: center;
+    background-color: lightgray;
 }
 .payment-box-container{
     display:flex;
-    width: 50%;
+    width: 50rem;
     background-color: rgb(255, 255, 255);
-    height: 10rem;
-    flex-direction: row-reverse;
+    height: 15rem;
     border-style: solid;
     border-color: rgb(235, 85, 85);
+    background-color: lightgray;
+    text-decoration-color: rgb(235, 85, 85);
+    text-align: center;
 
 }
 .payment-box{
     height:20rem;
     width: 15rem;
-    background-color: rgb(255, 255, 255);
-    float: right;
+    background-color: lightgray;
     border-style: solid;
-    border-color:rgb(235, 85, 85) ;
-}
+    border-color:rgb(235, 85, 85);
+    text-decoration-color: rgb(235, 85, 85);
+    display: grid ;
+    
+
+    
+}  
+
 .map-container{
     display:flex;
     justify-content: center;
     border-color: rgb(235, 85, 85);
     width: 100%;
-    height: 20rem;
-    
+    height: 20rem; 
 }
 
 .map{
-    
     width: 100%;
     display:flex;
-    justify-content: center;
+    justify-content: center;  
+}
+.joblist{
+    overflow-y: auto;
+    font-size: larger;
+    column-width: auto;
+}
+.cashout{
+    color:rgb(235, 85, 85);
+    border-style: solid;
+    border-color: rgb(235, 85, 85);
+}
 
-
+.cashout button:hover {
+    background: white;
+    color: rgb(235, 85, 85);
+    cursor: pointer;
+  }
+.acceptjob{
+    border-color:rgb(235, 85, 85) ;
+    text-decoration-color: rgb(235, 85, 85);
+    text-shadow: none;
+    color: rgb(235, 85, 85);
     
+}
+.Editjob{
+    display: table-column;
+    color:rgb(235, 85, 85);
+    border-style: solid;
+    border-color: rgb(235, 85, 85);
+}
+
+.Reviews{
+    display: table-column;
+    color:rgb(235, 85, 85);
+    border-style: solid;
+    border-color: rgb(235, 85, 85);
 }

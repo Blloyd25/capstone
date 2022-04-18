@@ -8,6 +8,7 @@ import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PayPalApp from "../Payment/testpaypal";
 import InteractiveMap from '../maps/interactiveMap'
 import EmployeePage from "./EmployeePage"
+import { Navigate } from "react-router-dom";
 
 
 const CustomerPage = () => {
@@ -90,7 +91,8 @@ const CustomerPage = () => {
       headers: {
         Authorization: "Bearer " + token,
       }
-    });            
+    });
+              
   }
   
 

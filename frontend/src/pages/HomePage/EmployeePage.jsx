@@ -96,7 +96,7 @@ const EmployeePage = () => {
         <div className="payment-box">
           <button className="cashout">Cash out</button>
           <h1 className="balance">Your current balance is
-            $287.42 </h1>
+            $10.00 </h1>
         </div>
       </div>
       <div className="map-container">
